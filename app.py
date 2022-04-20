@@ -36,12 +36,8 @@ def get_response_image(image_path):
 def get_player_map(name):
     player = lol_watcher.summoner.by_name(region, str(name))
     
-    #matchNumber = 1
     matchList = lol_watcher.match.matchlist_by_puuid(puuid=player['puuid'], region='EUROPE')
-    # one_match = lol_watcher.match.timeline_by_match(match_id=matchList[matchNumber], region='EUROPE')
 
-    # kills = pd.DataFrame()
-    # killerIdList = []
     imgPaths = []
     img = plt.imread('./static/images/summoners-rift.jpg')
     
@@ -67,7 +63,7 @@ def get_player_map(name):
         kills.loc[kills['killerId'] <= 5, 'killerId'] = 1
         kills.loc[kills['killerId'] > 5, 'killerId'] = 2
 
-        if ('x' in kills.columns):
+        if ('x' in kills.columns): # not all matches have recorded kill positions
             fig, ax = plt.subplots()
 
             ax.imshow(img, extent=[0, 14000, 0, 14000])
